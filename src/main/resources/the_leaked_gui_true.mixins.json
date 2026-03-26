@@ -1,0 +1,20 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.maxrhino.tlgt.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "MixinAbstractContainerMenu",
+    "accessors.AbstractContainerMenuAccessor"
+  ],
+  "client": [
+    "MixinGui",
+    "MixinGuiGraphicsExtractor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

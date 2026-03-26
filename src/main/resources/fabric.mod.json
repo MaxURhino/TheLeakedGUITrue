@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "the_leaked_gui_true",
+  "version": "${version}",
+  "name": "THE LEAKED GUI TRUE!!!",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/the_leaked_gui_true/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "net.maxrhino.tlgt.client.TheLeakedGUITrueDataGenerator"
+    ],
+    "client": [
+      "net.maxrhino.tlgt.client.TheLeakedGUITrueClient"
+    ],
+    "main": [
+      "net.maxrhino.tlgt.TheLeakedGUITrue"
+    ]
+  },
+  "mixins": [
+    "the_leaked_gui_true.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

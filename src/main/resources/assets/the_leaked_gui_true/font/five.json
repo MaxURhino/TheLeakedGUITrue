@@ -1,0 +1,19 @@
+{
+    "providers": [
+        {
+            "type": "reference",
+            "id": "the_leaked_gui_true:include/space"
+        },
+        {
+            "type": "reference",
+            "id": "the_leaked_gui_true:include/five",
+            "filter": {
+                "uniform": false
+            }
+        },
+        {
+            "type": "reference",
+            "id": "the_leaked_gui_true:include/unifont"
+        }
+    ]
+}
