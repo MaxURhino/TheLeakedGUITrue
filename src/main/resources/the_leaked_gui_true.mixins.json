@@ -10,7 +10,8 @@
   "client": [
     "MixinGui",
     "MixinGuiGraphicsExtractor",
-    "MixinCreativeModeInventoryScreen"
+    "MixinCreativeModeInventoryScreen",
+    "MixinInventoryScreen"
   ],
   "injectors": {
     "defaultRequire": 1

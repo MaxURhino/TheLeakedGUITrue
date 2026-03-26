@@ -1,39 +1,25 @@
-package net.maxrhino.tlgt.util.screens;
+package net.maxrhino.tlgt.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.maxrhino.tlgt.TheLeakedGUITrue;
-import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
-import org.jspecify.annotations.NonNull;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
 
-public class TestScreen extends Screen {
-    private int imageWidth;
-    private int imageHeight;
-
-    public TestScreen() {
-        super(Component.translatable("container.creative"));
-    }
-
-    @Override
-    protected void init() {
-        super.init();
-
-        this.imageWidth = 176;
-        this.imageHeight = 166;
-    }
-
-    @Override
-    public void extractBackground(@NonNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
-        super.extractBackground(graphics, mouseX, mouseY, a);
-
-        int x = (this.width - this.imageWidth) / 2;
-        int y = (this.height - this.imageHeight) / 2;
-
+@Mixin(InventoryScreen.class)
+public class MixinInventoryScreen {
+    @WrapOperation(
+            method = "extractBackground",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V")
+    )
+    private void the_leaked_gui_true$changeBackgroundRenderingMethod(GuiGraphicsExtractor graphics, RenderPipeline renderPipeline, Identifier texture, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight, Operation<Void> original) {
+        /*
         graphics.blit(
                 RenderPipelines.GUI_TEXTURED,
                 TheLeakedGUITrue.id("textures/gui/containers/default.png"),
@@ -43,6 +29,7 @@ public class TestScreen extends Screen {
                 176, 166,
                 176, 166
         );
+         */
 
         for (int i = 0; i < 9; i++) {
             drawSlot(graphics, x + 8 + (i * 18), y + 142);
@@ -87,6 +74,7 @@ public class TestScreen extends Screen {
         );
     }
 
+    @Unique
     private void drawSlot(GuiGraphicsExtractor graphics, int x, int y) {
         graphics.blit(
                 RenderPipelines.GUI_TEXTURED,
@@ -97,22 +85,5 @@ public class TestScreen extends Screen {
                 18, 18,
                 18, 18
         );
-    }
-
-    @Override
-    public boolean isPauseScreen() {
-        return false;
-    }
-
-    @Override
-    public boolean keyPressed(KeyEvent event) {
-        KeyMapping keyMapping = this.minecraft.options.keyInventory;
-
-        if (keyMapping.matches(event)) {
-            onClose();
-            return true;
-        }
-
-        return super.keyPressed(event);
     }
 }
