@@ -7,20 +7,16 @@ import net.maxrhino.tlgt.TheLeakedGUITrue;
 import net.maxrhino.tlgt.util.screens.TestScreen;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
-import org.apache.logging.log4j.core.config.plugins.PluginBuilderAttribute;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.Objects;
 
 import static net.maxrhino.tlgt.util.ScreenUtils.*;
 
@@ -31,14 +27,15 @@ public class MixinCreativeModeInventoryScreen {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V")
     )
     private void the_leaked_gui_true$onBlitBackground(GuiGraphicsExtractor instance, RenderPipeline renderPipeline, Identifier texture, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight, Operation<Void> original) {
-        if (texture.getPath().equals("textures/gui/container/creative_inventory/tab_items.png")) {
-            the_leaked_gui_true$drawTabItems(instance, x, y);
-        } else if (texture.getPath().equals("textures/gui/container/creative_inventory/tab_item_search.png")) {
-            the_leaked_gui_true$drawTabItemSearch(instance, x, y);
-        } else if (texture.getPath().equals("textures/gui/container/creative_inventory/tab_inventory.png")) {
-            the_leaked_gui_true$drawTabInventory(instance, x, y);
-        } else {
-            original.call(instance, renderPipeline, texture, x, y, u, v, width, height, textureWidth, textureHeight);
+        switch (texture.getPath()) {
+            case "textures/gui/container/creative_inventory/tab_items.png" ->
+                    the_leaked_gui_true$drawTabItems(instance, x, y);
+            case "textures/gui/container/creative_inventory/tab_item_search.png" ->
+                    the_leaked_gui_true$drawTabItemSearch(instance, x, y);
+            case "textures/gui/container/creative_inventory/tab_inventory.png" ->
+                    the_leaked_gui_true$drawTabInventory(instance, x, y);
+            default ->
+                    original.call(instance, renderPipeline, texture, x, y, u, v, width, height, textureWidth, textureHeight);
         }
     }
 

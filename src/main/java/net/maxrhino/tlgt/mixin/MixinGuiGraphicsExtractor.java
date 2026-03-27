@@ -3,7 +3,6 @@ package net.maxrhino.tlgt.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.maxrhino.tlgt.TheLeakedGUITrue;
-import net.maxrhino.tlgt.util.MixinFlags;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
