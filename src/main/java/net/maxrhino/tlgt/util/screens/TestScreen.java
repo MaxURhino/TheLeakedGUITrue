@@ -4,12 +4,12 @@ import net.maxrhino.tlgt.TheLeakedGUITrue;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import org.jspecify.annotations.NonNull;
+
+import static net.maxrhino.tlgt.util.ScreenUtils.*;
 
 public class TestScreen extends Screen {
     private int imageWidth;
@@ -34,13 +34,12 @@ public class TestScreen extends Screen {
         int x = (this.width - this.imageWidth) / 2;
         int y = (this.height - this.imageHeight) / 2;
 
-        graphics.blit(
+        graphics.blitSprite(
                 RenderPipelines.GUI_TEXTURED,
-                TheLeakedGUITrue.id("textures/gui/containers/default.png"),
-                x,
-                y,
-                0, 0,
+                TheLeakedGUITrue.id("containers/default"),
                 176, 166,
+                0, 0,
+                x, y,
                 176, 166
         );
 
@@ -58,12 +57,12 @@ public class TestScreen extends Screen {
             drawSlot(graphics, x + 8, y + 8 + (i * 18));
         }
 
-        graphics.blit(
+        graphics.blitSprite(
                 RenderPipelines.GUI_TEXTURED,
-                TheLeakedGUITrue.id("textures/gui/containers/elements/character_background.png"),
-                x + 25, y + 7,
-                0, 0,
+                TheLeakedGUITrue.id("containers/elements/character_background"),
                 51, 72,
+                0, 0,
+                x + 25, y + 7,
                 51, 72
         );
 
@@ -77,25 +76,13 @@ public class TestScreen extends Screen {
 
         drawSlot(graphics, x + 154, y + 28);
 
-        graphics.blit(
+        graphics.blitSprite(
                 RenderPipelines.GUI_TEXTURED,
-                TheLeakedGUITrue.id("textures/gui/containers/elements/recipe_arrow.png"),
-                x + 135, y + 29,
-                0, 0,
+                TheLeakedGUITrue.id("containers/elements/recipe_arrow"),
                 16, 13,
-                16, 13
-        );
-    }
-
-    private void drawSlot(GuiGraphicsExtractor graphics, int x, int y) {
-        graphics.blit(
-                RenderPipelines.GUI_TEXTURED,
-                Identifier.withDefaultNamespace("textures/gui/sprites/container/slot.png"),
-                x - 1,
-                y - 1,
                 0, 0,
-                18, 18,
-                18, 18
+                x + 135, y + 29,
+                16, 13
         );
     }
 

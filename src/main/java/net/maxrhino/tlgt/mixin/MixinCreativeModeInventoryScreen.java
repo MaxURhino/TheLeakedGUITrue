@@ -4,15 +4,21 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.maxrhino.tlgt.TheLeakedGUITrue;
+import net.maxrhino.tlgt.util.screens.TestScreen;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
+import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 import org.apache.logging.log4j.core.config.plugins.PluginBuilderAttribute;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Objects;
 
@@ -127,5 +133,19 @@ public class MixinCreativeModeInventoryScreen {
         drawSlot(graphics, x + 54, y + 6);
         drawSlot(graphics, x + 54, y + 33);
         drawSlot(graphics, x + 35, y + 20);
+    }
+
+    @Inject(
+            method = "keyPressed",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    private void the_leaked_gui_true$goToTestScreenOnPress(KeyEvent event, CallbackInfoReturnable<Boolean> cir) {
+        KeyMapping keyMapping = Minecraft.getInstance().options.keyInventory;
+
+        if (keyMapping.matches(event)) {
+            Minecraft.getInstance().execute(() -> Minecraft.getInstance().setScreen(new TestScreen()));
+            cir.setReturnValue(true);
+        }
     }
 }
