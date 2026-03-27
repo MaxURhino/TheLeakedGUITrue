@@ -55,6 +55,11 @@ public class MixinGuiGraphicsExtractor {
         instance.pose().translate(x - minusX, y - minusY);
         instance.pose().scale(7f/8f);
 
+        if (str.length() > 1) {
+            instance.pose().scale(5f/8f, 1);
+            instance.pose().translate(-(minusX * 10), 0);
+        }
+
         instance.text(font, styled, 0, 0, 0xFF686868, false);
 
         instance.pose().popMatrix();

@@ -9,8 +9,9 @@ import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+
+import static net.maxrhino.tlgt.util.ScreenUtils.drawSlot;
 
 @Mixin(InventoryScreen.class)
 public class MixinInventoryScreen {
@@ -19,13 +20,13 @@ public class MixinInventoryScreen {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V")
     )
     private void the_leaked_gui_true$changeBackgroundRenderingMethod(GuiGraphicsExtractor graphics, RenderPipeline renderPipeline, Identifier texture, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight, Operation<Void> original) {
-        graphics.blit(
+        graphics.blitSprite(
                 RenderPipelines.GUI_TEXTURED,
-                TheLeakedGUITrue.id("textures/gui/containers/default.png"),
-                x,
-                y,
+                TheLeakedGUITrue.id("containers/default"),
+                176,
+                166,
                 0, 0,
-                176, 166,
+                x, y,
                 176, 166
         );
 
@@ -43,12 +44,12 @@ public class MixinInventoryScreen {
             drawSlot(graphics, x + 8, y + 8 + (i * 18));
         }
 
-        graphics.blit(
+        graphics.blitSprite(
                 RenderPipelines.GUI_TEXTURED,
-                TheLeakedGUITrue.id("textures/gui/containers/elements/character_background.png"),
-                x + 25, y + 7,
-                0, 0,
+                TheLeakedGUITrue.id("containers/elements/character_background"),
                 51, 72,
+                0, 0,
+                x + 25, y + 7,
                 51, 72
         );
 
@@ -62,26 +63,13 @@ public class MixinInventoryScreen {
 
         drawSlot(graphics, x + 154, y + 28);
 
-        graphics.blit(
+        graphics.blitSprite(
                 RenderPipelines.GUI_TEXTURED,
-                TheLeakedGUITrue.id("textures/gui/containers/elements/recipe_arrow.png"),
-                x + 135, y + 29,
-                0, 0,
+                TheLeakedGUITrue.id("containers/elements/recipe_arrow"),
                 16, 13,
-                16, 13
-        );
-    }
-
-    @Unique
-    private void drawSlot(GuiGraphicsExtractor graphics, int x, int y) {
-        graphics.blit(
-                RenderPipelines.GUI_TEXTURED,
-                Identifier.withDefaultNamespace("textures/gui/sprites/container/slot.png"),
-                x - 1,
-                y - 1,
                 0, 0,
-                18, 18,
-                18, 18
+                x + 135, y + 29,
+                16, 13
         );
     }
 }
