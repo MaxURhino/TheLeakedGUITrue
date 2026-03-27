@@ -8,13 +8,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Map;
+import java.util.Optional;
 
 public class TheLeakedGUITrue implements ModInitializer {
     public static final String MOD_ID = "the_leaked_gui_true";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-    public static final Map<Component, Pair<Integer, Boolean>> TEXT_COLORS = Map.ofEntries(
-            Map.entry(Component.translatable("container.barrel"), Pair.of(0xFFFFFFFF, true))
+    public static final Map<Component, Pair<Optional<Pair<Integer, Boolean>>, Optional<Pair<Integer, Boolean>>>> TEXT_COLORS = Map.ofEntries(
+            Map.entry(Component.translatable("container.barrel"), Pair.of(Optional.of(Pair.of(0xFFFFFFFF, true)), Optional.empty())),
+            Map.entry(Component.translatable("container.chest"), Pair.of(Optional.of(Pair.of(0xFFFFFFFF, true)), Optional.empty())),
+            Map.entry(Component.translatable("container.chestDouble"), Pair.of(Optional.of(Pair.of(0xFFFFFFFF, true)), Optional.empty()))
     );
 
     @Override

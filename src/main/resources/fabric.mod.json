@@ -23,6 +23,7 @@
   "mixins": [
     "the_leaked_gui_true.mixins.json"
   ],
+  "accessWidener": "the_leaked_gui_true.accesswidener",
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric-api": "*",

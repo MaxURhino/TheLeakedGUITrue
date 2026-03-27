@@ -11,7 +11,9 @@
     "MixinGui",
     "MixinGuiGraphicsExtractor",
     "MixinCreativeModeInventoryScreen",
-    "MixinInventoryScreen"
+    "MixinInventoryScreen",
+    "MixinContainerScreen",
+    "MixinAbstractContainerScreen"
   ],
   "injectors": {
     "defaultRequire": 1

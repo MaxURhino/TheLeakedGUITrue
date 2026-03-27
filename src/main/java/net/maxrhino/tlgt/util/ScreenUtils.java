@@ -5,18 +5,26 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 
 public class ScreenUtils {
+    public static void drawSlot(GuiGraphicsExtractor graphics, int x, int y, String type) {
+        drawSlotWithCustomSize(graphics, x, y, 16, 16, type);
+    }
+
     public static void drawSlot(GuiGraphicsExtractor graphics, int x, int y) {
         drawSlotWithCustomSize(graphics, x, y, 16, 16);
     }
 
-    public static void drawSlotWithCustomSize(GuiGraphicsExtractor graphics, int x, int y, int width, int height) {
+    public static void drawSlotWithCustomSize(GuiGraphicsExtractor graphics, int x, int y, int width, int height, String type) {
         graphics.blitSprite(
                 RenderPipelines.GUI_TEXTURED,
-                TheLeakedGUITrue.id("hud/slot"),
+                TheLeakedGUITrue.id("hud/slots/" + type),
                 width + 2, width + 2,
                 0, 0,
                 x - 1, y - 1,
                 width + 2, height + 2
         );
+    }
+
+    public static void drawSlotWithCustomSize(GuiGraphicsExtractor graphics, int x, int y, int width, int height) {
+        drawSlotWithCustomSize(graphics, x, y, width, height, "default");
     }
 }
