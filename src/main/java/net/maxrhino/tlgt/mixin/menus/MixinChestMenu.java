@@ -1,10 +1,9 @@
-package net.maxrhino.tlgt.mixin;
+package net.maxrhino.tlgt.mixin.menus;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.maxrhino.tlgt.util.MixinFlags;
 import net.minecraft.world.Container;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.inventory.MenuType;
 import org.spongepowered.asm.mixin.Mixin;
@@ -43,7 +42,7 @@ public class MixinChestMenu {
                     target = "Lnet/minecraft/world/inventory/ChestMenu;addStandardInventorySlots(Lnet/minecraft/world/Container;II)V"
             )
     )
-    private <T extends AbstractContainerMenu> void the_leaked_gui_true$moveInventorySlots(ChestMenu instance, Container itemStacks, int left, int top, Operation<Void> original) {
+    private void the_leaked_gui_true$moveInventorySlots(ChestMenu instance, Container itemStacks, int left, int top, Operation<Void> original) {
         MenuType<?> menuType = instance.menuType;
         MixinFlags.IS_GENERIC_9x3.set(menuType == MenuType.GENERIC_9x3);
         int yLevel = menuType == MenuType.GENERIC_9x3 ? 49 : 76;

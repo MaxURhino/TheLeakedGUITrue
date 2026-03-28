@@ -1,9 +1,10 @@
-package net.maxrhino.tlgt.mixin;
+package net.maxrhino.tlgt.mixin.screens;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.maxrhino.tlgt.TheLeakedGUITrue;
+import net.maxrhino.tlgt.util.ScreenUtils;
 import net.maxrhino.tlgt.util.screens.TestScreen;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -41,11 +42,8 @@ public class MixinCreativeModeInventoryScreen {
 
     @Unique
     private void the_leaked_gui_true$drawTabItems(GuiGraphicsExtractor graphics, int x, int y) {
-        graphics.blitSprite(
-                RenderPipelines.GUI_TEXTURED,
-                TheLeakedGUITrue.id("containers/default"),
-                195, 136,
-                0, 0,
+        ScreenUtils.drawContainerBackground(
+                graphics,
                 x, y,
                 195, 136
         );
@@ -60,13 +58,10 @@ public class MixinCreativeModeInventoryScreen {
             }
         }
 
-        graphics.blitSprite(
-                RenderPipelines.GUI_TEXTURED,
-                TheLeakedGUITrue.id("containers/elements/scroller_background"),
-                14, 112,
-                0, 0,
-                x + 174, y + 17,
-                14, 112
+        drawSlotWithCustomSize(
+                graphics,
+                x + 175, y + 18,
+                12, 110
         );
     }
 
@@ -74,23 +69,17 @@ public class MixinCreativeModeInventoryScreen {
     private void the_leaked_gui_true$drawTabItemSearch(GuiGraphicsExtractor graphics, int x, int y) {
         the_leaked_gui_true$drawTabItems(graphics, x, y);
 
-        graphics.blitSprite(
-                RenderPipelines.GUI_TEXTURED,
-                TheLeakedGUITrue.id("containers/elements/creative_searchbar"),
-                90, 12,
-                0, 0,
-                x + 80, y + 4,
-                90, 12
+        drawSlotWithCustomSize(
+                graphics,
+                x + 81, y + 5,
+                88, 10
         );
     }
 
     @Unique
     private void the_leaked_gui_true$drawTabInventory(GuiGraphicsExtractor graphics, int x, int y) {
-        graphics.blitSprite(
-                RenderPipelines.GUI_TEXTURED,
-                TheLeakedGUITrue.id("containers/default"),
-                195, 136,
-                0, 0,
+        ScreenUtils.drawContainerBackground(
+                graphics,
                 x, y,
                 195, 136
         );
@@ -109,7 +98,7 @@ public class MixinCreativeModeInventoryScreen {
 
         graphics.blitSprite(
                 RenderPipelines.GUI_TEXTURED,
-                TheLeakedGUITrue.id("containers/elements/creative_trash_bin"),
+                TheLeakedGUITrue.id("containers/elements/creative_inventory/trash_bin"),
                 9, 13,
                 0, 0,
                 x + 177, y + 114,

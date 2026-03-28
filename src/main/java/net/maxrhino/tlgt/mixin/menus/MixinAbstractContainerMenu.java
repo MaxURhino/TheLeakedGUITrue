@@ -1,4 +1,4 @@
-package net.maxrhino.tlgt.mixin;
+package net.maxrhino.tlgt.mixin.menus;
 
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import org.spongepowered.asm.mixin.Mixin;

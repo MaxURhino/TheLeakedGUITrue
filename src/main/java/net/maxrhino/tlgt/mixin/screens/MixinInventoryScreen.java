@@ -1,9 +1,10 @@
-package net.maxrhino.tlgt.mixin;
+package net.maxrhino.tlgt.mixin.screens;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.maxrhino.tlgt.TheLeakedGUITrue;
+import net.maxrhino.tlgt.util.ScreenUtils;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -20,12 +21,8 @@ public class MixinInventoryScreen {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V")
     )
     private void the_leaked_gui_true$changeBackgroundRenderingMethod(GuiGraphicsExtractor graphics, RenderPipeline renderPipeline, Identifier texture, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight, Operation<Void> original) {
-        graphics.blitSprite(
-                RenderPipelines.GUI_TEXTURED,
-                TheLeakedGUITrue.id("containers/default"),
-                176,
-                166,
-                0, 0,
+        ScreenUtils.drawContainerBackground(
+                graphics,
                 x, y,
                 176, 166
         );

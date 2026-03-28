@@ -1,6 +1,7 @@
 package net.maxrhino.tlgt.util.screens;
 
 import net.maxrhino.tlgt.TheLeakedGUITrue;
+import net.maxrhino.tlgt.util.components.widgets.CloseButtonWidget;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
@@ -25,6 +26,11 @@ public class TestScreen extends Screen {
 
         this.imageWidth = 176;
         this.imageHeight = 166;
+
+        int x = (this.width - this.imageWidth) / 2;
+        int y = (this.height - this.imageHeight) / 2;
+
+        this.addRenderableWidget(new CloseButtonWidget(x + imageWidth - 8, y + 4));
     }
 
     @Override

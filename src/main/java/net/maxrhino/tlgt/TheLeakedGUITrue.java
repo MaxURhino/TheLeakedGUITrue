@@ -1,6 +1,5 @@
 package net.maxrhino.tlgt;
 
-import com.mojang.datafixers.util.Pair;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -8,8 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 public class TheLeakedGUITrue implements ModInitializer {
     public static final String MOD_ID = "the_leaked_gui_true";
@@ -18,7 +15,10 @@ public class TheLeakedGUITrue implements ModInitializer {
     public static final List<Component> CHANGE_POS_LIST = List.of(
             Component.translatable("container.chest"),
             Component.translatable("container.barrel"),
-            Component.translatable("container.enderchest")
+            Component.translatable("container.enderchest"),
+            Component.translatable("container.furnace"),
+            Component.translatable("container.blast_furnace"),
+            Component.translatable("container.smoker")
     );
 
     @Override

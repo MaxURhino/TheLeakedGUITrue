@@ -1,5 +1,6 @@
-package net.maxrhino.tlgt.mixin;
+package net.maxrhino.tlgt.mixin.screens;
 
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.maxrhino.tlgt.TheLeakedGUITrue;
@@ -15,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import java.util.Optional;
 
 @Mixin(AbstractContainerScreen.class)
-public class MixinAbstractContainerScreen {
+public abstract class MixinAbstractContainerScreen {
     @Unique
     private Optional<Component> str;
 
@@ -64,5 +65,12 @@ public class MixinAbstractContainerScreen {
         }
 
         original.call(instance, font, str, x, y, 0xFF898588, dropShadow);
+    }
+
+    @WrapMethod(
+            method = "init()V"
+    )
+    protected void overrideInit(Operation<Void> original) {
+        original.call();
     }
 }

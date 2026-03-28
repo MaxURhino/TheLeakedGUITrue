@@ -4,18 +4,23 @@
   "package": "net.maxrhino.tlgt.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
-    "MixinAbstractContainerMenu",
+    "menus.MixinAbstractContainerMenu",
     "accessors.AbstractContainerMenuAccessor",
-    "MixinChestMenu"
+    "menus.MixinChestMenu",
+    "menus.MixinShulkerBoxMenu",
+    "menus.MixinAbstractFurnaceMenu"
   ],
   "client": [
     "MixinGui",
     "MixinGuiGraphicsExtractor",
-    "MixinCreativeModeInventoryScreen",
-    "MixinInventoryScreen",
-    "MixinContainerScreen",
-    "MixinAbstractContainerScreen",
-    "accessors.AbstractContainerScreenAccessor"
+    "screens.MixinCreativeModeInventoryScreen",
+    "screens.MixinInventoryScreen",
+    "screens.MixinContainerScreen",
+    "screens.MixinAbstractContainerScreen",
+    "screens.MixinShulkerBoxScreen",
+    "screens.MixinAbstractFurnaceScreen",
+    "accessors.AbstractContainerScreenAccessor",
+    "accessors.ScreenAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
