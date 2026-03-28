@@ -58,7 +58,7 @@ public abstract class MixinAbstractContainerScreen {
     private void the_leaked_gui_true$changeInventoryText(GuiGraphicsExtractor instance, Font font, Component str, int x, int y, int color, boolean dropShadow, Operation<Void> original) {
         if (this.str.isPresent() && TheLeakedGUITrue.CHANGE_POS_LIST.contains(this.str.get())) {
             x += 90;
-            y = 67;
+            y = 67; // bro... really?
             if (MixinFlags.IS_GENERIC_9x3.get()) {
                 y -= 28;
             }
