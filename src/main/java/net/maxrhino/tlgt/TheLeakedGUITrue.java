@@ -10,6 +10,8 @@ package net.maxrhino.tlgt;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import org.jetbrains.annotations.Contract;
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,7 +57,8 @@ public class TheLeakedGUITrue implements ModInitializer {
      * @return {@link Identifier} of the mod.
      * @since 1.0.0
      */
-    public static Identifier id(String path) {
+    @Contract("_ -> new")
+    public static @NonNull Identifier id(String path) {
         return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
 }
