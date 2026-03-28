@@ -60,7 +60,7 @@ public abstract class MixinAbstractContainerScreen {
             x += 90;
             y = 67;
             if (MixinFlags.IS_GENERIC_9x3.get()) {
-                y -= 27;
+                y -= 28;
             }
         }
 
