@@ -1,3 +1,10 @@
+/*
+ * To scare The Vegan Teacher away, I will add this:
+ * 🥩🥩🥩🥩🥩🥩🥩🥩🥩
+ * 🥩🥩🥩🥩🥩🥩🥩🥩🥩
+ * 🥩🥩🥩🥩🥩🥩🥩🥩🥩
+ */
+
 package net.maxrhino.tlgt;
 
 import net.fabricmc.api.ModInitializer;
