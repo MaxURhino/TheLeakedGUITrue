@@ -2,18 +2,22 @@ package net.maxrhino.tlgt.mixin.screens;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
+import net.maxrhino.tlgt.TheLeakedGUITrue;
 import net.maxrhino.tlgt.mixin.accessors.AbstractContainerScreenAccessor;
 import net.maxrhino.tlgt.mixin.accessors.ScreenAccessor;
+import net.maxrhino.tlgt.interfaces.GuiGraphicsExtractorDuckInterface;
 import net.maxrhino.tlgt.util.MixinFlags;
-import net.maxrhino.tlgt.util.ScreenUtils;
 import net.maxrhino.tlgt.util.components.widgets.CloseButtonWidget;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
+
+import java.util.Objects;
 
 @Mixin(ContainerScreen.class)
 public abstract class MixinContainerScreen extends MixinAbstractContainerScreen {
@@ -50,8 +54,9 @@ public abstract class MixinContainerScreen extends MixinAbstractContainerScreen 
         int imageWidth = ((AbstractContainerScreenAccessor)this).imageWidth();
         int imageHeight = ((AbstractContainerScreenAccessor)this).imageHeight();
 
-        ScreenUtils.drawContainerBackground(
-                graphics,
+        GuiGraphicsExtractorDuckInterface mixined = (GuiGraphicsExtractorDuckInterface) graphics;
+
+        mixined.the_leaked_gui_true$drawContainerBackground(
                 x + 90, (instance.height / 2) - 47,
                 width, 94
         );
@@ -64,12 +69,26 @@ public abstract class MixinContainerScreen extends MixinAbstractContainerScreen 
             textureThing = "chest_ender";
         }
 
-        ScreenUtils.drawContainerBackground(
-                graphics,
+        mixined.the_leaked_gui_true$drawContainerBackground(
                 x - 90, (instance.height / 2) - ((imageHeight - 90) / 2),
                 width, imageHeight - 90,
                 textureThing
         );
+
+        if (Objects.equals(textureThing, "chest_default") || Objects.equals(textureThing, "chest_ender")) {
+            String textureThingy;
+            if (Objects.equals(textureThing, "chest_ender")) {
+                textureThingy = "hinge_ender";
+            } else {
+                textureThingy = "hinge_or_something";
+            }
+            graphics.blitSprite(
+                    RenderPipelines.GUI_TEXTURED,
+                    TheLeakedGUITrue.id("containers/elements/chest/" + textureThingy),
+                    (x - 90) + (imageWidth / 2) - 3, (instance.height / 2) - ((imageHeight - 90) / 2) - 3,
+                    6, 11
+            );
+        }
 
         int cusX;
         int cusY;
@@ -78,12 +97,12 @@ public abstract class MixinContainerScreen extends MixinAbstractContainerScreen 
         cusY = (instance.height / 2) - 42;
 
         for (int i = 0; i < 9; i++) {
-            ScreenUtils.drawSlot(graphics, cusX + 8 + (i * 18), cusY + 65);
+            mixined.the_leaked_gui_true$drawSlot(cusX + 8 + (i * 18), cusY + 65);
         }
 
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 3; j++) {
-                ScreenUtils.drawSlot(graphics, (cusX + 8) + (i * 18), (cusY + 43) - (j * 18));
+                mixined.the_leaked_gui_true$drawSlot((cusX + 8) + (i * 18), (cusY + 43) - (j * 18));
             }
         }
 
@@ -92,7 +111,7 @@ public abstract class MixinContainerScreen extends MixinAbstractContainerScreen 
 
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < instance.getMenu().getRowCount(); j++) {
-                ScreenUtils.drawSlot(graphics, (cusX + 8) + (i * 18), (cusY + 18) + (j * 18), textureThing);
+                mixined.the_leaked_gui_true$drawSlot((cusX + 8) + (i * 18), (cusY + 18) + (j * 18), textureThing);
             }
         }
     }

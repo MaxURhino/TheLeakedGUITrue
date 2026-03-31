@@ -18,7 +18,7 @@ import java.util.Optional;
 @Mixin(AbstractContainerScreen.class)
 public abstract class MixinAbstractContainerScreen {
     @Unique
-    private Optional<Component> str;
+    private Optional<Component> optionalComponent;
 
     @WrapOperation(
             method = "extractLabels",
@@ -44,7 +44,7 @@ public abstract class MixinAbstractContainerScreen {
             original.call(instance, font, str, x, y, color, dropShadow);
         }
 
-        this.str = Optional.of(str);
+        this.optionalComponent = Optional.of(str);
     }
 
     @WrapOperation(
@@ -56,7 +56,7 @@ public abstract class MixinAbstractContainerScreen {
             )
     )
     private void the_leaked_gui_true$changeInventoryText(GuiGraphicsExtractor instance, Font font, Component str, int x, int y, int color, boolean dropShadow, Operation<Void> original) {
-        if (this.str.isPresent() && TheLeakedGUITrue.CHANGE_POS_LIST.contains(this.str.get())) {
+        if (this.optionalComponent.isPresent() && TheLeakedGUITrue.CHANGE_POS_LIST.contains(this.optionalComponent.get())) {
             x += 90;
             y = 67; // bro... really?
             if (MixinFlags.IS_GENERIC_9x3.get()) {
