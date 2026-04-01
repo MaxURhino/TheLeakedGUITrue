@@ -4,7 +4,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.maxrhino.tlgt.TheLeakedGUITrue;
-import net.maxrhino.tlgt.interfaces.GuiGraphicsExtractorDuckInterface;
+import net.maxrhino.tlgt.interfaces.ScreenUtils;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -34,7 +34,7 @@ public class MixinCreativeModeInventoryScreen {
 
     @Unique
     private void the_leaked_gui_true$drawTabItems(GuiGraphicsExtractor graphics, int x, int y) {
-        GuiGraphicsExtractorDuckInterface mixined = (GuiGraphicsExtractorDuckInterface) graphics;
+        ScreenUtils mixined = (ScreenUtils) graphics;
 
         mixined.the_leaked_gui_true$drawContainerBackground(
                 x, y,
@@ -59,7 +59,7 @@ public class MixinCreativeModeInventoryScreen {
 
     @Unique
     private void the_leaked_gui_true$drawTabItemSearch(GuiGraphicsExtractor graphics, int x, int y) {
-        GuiGraphicsExtractorDuckInterface mixined = (GuiGraphicsExtractorDuckInterface) graphics;
+        ScreenUtils mixined = (ScreenUtils) graphics;
 
         the_leaked_gui_true$drawTabItems(graphics, x, y);
 
@@ -71,7 +71,7 @@ public class MixinCreativeModeInventoryScreen {
 
     @Unique
     private void the_leaked_gui_true$drawTabInventory(GuiGraphicsExtractor graphics, int x, int y) {
-        GuiGraphicsExtractorDuckInterface mixined = (GuiGraphicsExtractorDuckInterface) graphics;
+        ScreenUtils mixined = (ScreenUtils) graphics;
 
         mixined.the_leaked_gui_true$drawContainerBackground(
                 x, y,

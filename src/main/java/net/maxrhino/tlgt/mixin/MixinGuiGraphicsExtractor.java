@@ -3,7 +3,7 @@ package net.maxrhino.tlgt.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.maxrhino.tlgt.TheLeakedGUITrue;
-import net.maxrhino.tlgt.interfaces.GuiGraphicsExtractorDuckInterface;
+import net.maxrhino.tlgt.interfaces.ScreenUtils;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GuiGraphicsExtractor.class)
-public class MixinGuiGraphicsExtractor implements GuiGraphicsExtractorDuckInterface {
+public class MixinGuiGraphicsExtractor implements ScreenUtils {
     @Inject(
             method = "itemCount",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;text(Lnet/minecraft/client/gui/Font;Ljava/lang/String;IIIZ)V")
@@ -78,6 +78,11 @@ public class MixinGuiGraphicsExtractor implements GuiGraphicsExtractorDuckInterf
         the_leaked_gui_true$drawSlot(x, y, type, false);
     }
 
+    @Override
+    public void the_leaked_gui_true$drawSlot(int x, int y, ContainerTypes type) {
+        the_leaked_gui_true$drawSlot(x, y, type.getName());
+    }
+
     @Unique
     public void the_leaked_gui_true$drawSlot(int x, int y, SlotPath type) {
         the_leaked_gui_true$drawSlotWithCustomSize(x, y, 16, 16, type);
@@ -125,6 +130,11 @@ public class MixinGuiGraphicsExtractor implements GuiGraphicsExtractorDuckInterf
                 x, y,
                 width, height
         );
+    }
+
+    @Unique
+    public void the_leaked_gui_true$drawContainerBackground(int x, int y, int width, int height, ContainerTypes container) {
+        the_leaked_gui_true$drawContainerBackground(x, y, width, height, container.getName());
     }
 
     @Unique

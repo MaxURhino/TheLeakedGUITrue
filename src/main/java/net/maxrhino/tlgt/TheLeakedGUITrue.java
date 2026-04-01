@@ -7,7 +7,10 @@
 
 package net.maxrhino.tlgt;
 
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
+import net.maxrhino.tlgt.config.TheLeakedGUITrueConfig;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.Contract;
@@ -40,15 +43,18 @@ public class TheLeakedGUITrue implements ModInitializer {
             Component.translatable("container.enderchest"),
             Component.translatable("container.furnace"),
             Component.translatable("container.blast_furnace"),
-            Component.translatable("container.smoker")
+            Component.translatable("container.smoker"),
+            Component.translatable("container.shulkerBox")
     );
+
+    public static final TheLeakedGUITrue INSTANCE = new TheLeakedGUITrue();
 
     /**
      * The main function of the mod. For now, it only contains an information to the {@link TheLeakedGUITrue#LOGGER} to type {@code "Initializing The Leaked GUI True!!!"} in the log.
      */
     @Override
     public void onInitialize() {
-        LOGGER.info("Initializing The Leaked GUI True!!!");
+        AutoConfig.register(TheLeakedGUITrueConfig.class, GsonConfigSerializer::new);
     }
 
     /**

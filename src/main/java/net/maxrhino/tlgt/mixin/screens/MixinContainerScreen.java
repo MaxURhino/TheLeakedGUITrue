@@ -5,7 +5,7 @@ import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.maxrhino.tlgt.TheLeakedGUITrue;
 import net.maxrhino.tlgt.mixin.accessors.AbstractContainerScreenAccessor;
 import net.maxrhino.tlgt.mixin.accessors.ScreenAccessor;
-import net.maxrhino.tlgt.interfaces.GuiGraphicsExtractorDuckInterface;
+import net.maxrhino.tlgt.interfaces.ScreenUtils;
 import net.maxrhino.tlgt.util.MixinFlags;
 import net.maxrhino.tlgt.util.components.widgets.CloseButtonWidget;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -54,19 +54,19 @@ public abstract class MixinContainerScreen extends MixinAbstractContainerScreen 
         int imageWidth = ((AbstractContainerScreenAccessor)this).imageWidth();
         int imageHeight = ((AbstractContainerScreenAccessor)this).imageHeight();
 
-        GuiGraphicsExtractorDuckInterface mixined = (GuiGraphicsExtractorDuckInterface) graphics;
+        ScreenUtils mixined = (ScreenUtils) graphics;
 
         mixined.the_leaked_gui_true$drawContainerBackground(
                 x + 90, (instance.height / 2) - 47,
                 width, 94
         );
 
-        String textureThing = "chest_default";
+        ScreenUtils.ContainerTypes textureThing = ScreenUtils.ContainerTypes.CHEST_DEFAULT;
         Component drawnContainer = MixinFlags.DRAWN_CONTAINER.get();
         if (drawnContainer.equals(Component.translatable("container.barrel"))) {
-            textureThing = "barrel";
+            textureThing = ScreenUtils.ContainerTypes.BARREL;
         } else if (drawnContainer.equals(Component.translatable("container.enderchest"))) {
-            textureThing = "chest_ender";
+            textureThing = ScreenUtils.ContainerTypes.CHEST_ENDER;
         }
 
         mixined.the_leaked_gui_true$drawContainerBackground(
@@ -75,9 +75,9 @@ public abstract class MixinContainerScreen extends MixinAbstractContainerScreen 
                 textureThing
         );
 
-        if (Objects.equals(textureThing, "chest_default") || Objects.equals(textureThing, "chest_ender")) {
+        if (Objects.equals(textureThing, ScreenUtils.ContainerTypes.CHEST_DEFAULT) || Objects.equals(textureThing, ScreenUtils.ContainerTypes.CHEST_ENDER)) {
             String textureThingy;
-            if (Objects.equals(textureThing, "chest_ender")) {
+            if (Objects.equals(textureThing, ScreenUtils.ContainerTypes.CHEST_ENDER)) {
                 textureThingy = "hinge_ender";
             } else {
                 textureThingy = "hinge_or_something";

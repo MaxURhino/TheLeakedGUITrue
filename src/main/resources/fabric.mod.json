@@ -18,6 +18,9 @@
     ],
     "main": [
       "net.maxrhino.tlgt.TheLeakedGUITrue"
+    ],
+    "modmenu": [
+      "net.maxrhino.tlgt.compat.modmenu.TheLeakedGUITrueModMenuCompat"
     ]
   },
   "mixins": [
