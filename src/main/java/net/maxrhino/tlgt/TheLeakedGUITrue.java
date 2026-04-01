@@ -45,7 +45,9 @@ public class TheLeakedGUITrue implements ModInitializer {
             Component.translatable("container.furnace"),
             Component.translatable("container.blast_furnace"),
             Component.translatable("container.smoker"),
-            Component.translatable("container.shulkerBox")
+            Component.translatable("container.shulkerBox"),
+            Component.translatable("block.minecraft.copper_chest"),
+            Component.translatable("container.crafting")
     );
 
     public static final TheLeakedGUITrue INSTANCE = new TheLeakedGUITrue();

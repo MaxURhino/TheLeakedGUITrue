@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
+import java.util.List;
 import java.util.Objects;
 
 @Mixin(ContainerScreen.class)
@@ -28,6 +29,11 @@ public abstract class MixinContainerScreen extends MixinAbstractContainerScreen 
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V", ordinal = 0)
     )
     private void the_leaked_gui_true$removeFirstCall(GuiGraphicsExtractor instance, RenderPipeline renderPipeline, Identifier texture, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {
+    }
+
+    @Override
+    protected boolean the_leaked_gui_true$overrideHasClickedOutside(double mx, double my, int xo, int yo, Operation<Boolean> original) {
+        return super.the_leaked_gui_true$overrideHasClickedOutside(mx, my, xo, yo, original);
     }
 
     @Override
@@ -88,7 +94,12 @@ public abstract class MixinContainerScreen extends MixinAbstractContainerScreen 
                 textureThing
         );
 
-        if (Objects.equals(textureThing, ScreenUtils.ContainerTypes.CHEST_DEFAULT) || Objects.equals(textureThing, ScreenUtils.ContainerTypes.CHEST_ENDER)) {
+        List<ScreenUtils.ContainerTypes> hingeWhitelist = List.of(
+                ScreenUtils.ContainerTypes.CHEST_DEFAULT,
+                ScreenUtils.ContainerTypes.CHEST_ENDER
+        );
+
+        if (hingeWhitelist.contains(textureThing) || chestType > -1) {
             String textureThingy;
             if (Objects.equals(textureThing, ScreenUtils.ContainerTypes.CHEST_ENDER)) {
                 textureThingy = "hinge_ender";

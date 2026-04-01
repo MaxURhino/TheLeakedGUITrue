@@ -13,7 +13,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(InventoryScreen.class)
-public class MixinInventoryScreen {
+public class MixinInventoryScreen extends MixinAbstractContainerScreen {
+    @Override
+    protected boolean the_leaked_gui_true$overrideHasClickedOutside(double mx, double my, int xo, int yo, Operation<Boolean> original) {
+        return mx < xo || my < yo || mx >= xo + this.imageWidth || my >= yo + this.imageHeight;
+    }
+
     @WrapOperation(
             method = "extractBackground",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V")

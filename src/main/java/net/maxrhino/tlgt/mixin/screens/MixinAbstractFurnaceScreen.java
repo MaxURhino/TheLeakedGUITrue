@@ -33,6 +33,11 @@ public class MixinAbstractFurnaceScreen extends MixinAbstractContainerScreen {
     @Unique
     private ScreenUtils.ContainerTypes furnaceType;
 
+    @Override
+    protected boolean the_leaked_gui_true$overrideHasClickedOutside(double mx, double my, int xo, int yo, Operation<Boolean> original) {
+        return super.the_leaked_gui_true$overrideHasClickedOutside(mx, my, xo, yo, original);
+    }
+
     @Inject(method = "init", at = @At("TAIL"))
     private void the_leaked_gui_true$addExitButton(CallbackInfo ci) {
         AbstractFurnaceScreen<?> instance = (AbstractFurnaceScreen<?>) (Object) this;

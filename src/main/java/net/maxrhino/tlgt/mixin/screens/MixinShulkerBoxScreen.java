@@ -32,6 +32,11 @@ public class MixinShulkerBoxScreen extends MixinAbstractContainerScreen {
         ((ScreenAccessor) this).the_leaked_gui_true$addRenderableWidget(new CloseButtonWidget(xo + imageWidth - 8, yo + 4));
     }
 
+    @Override
+    protected boolean the_leaked_gui_true$overrideHasClickedOutside(double mx, double my, int xo, int yo, Operation<Boolean> original) {
+        return super.the_leaked_gui_true$overrideHasClickedOutside(mx, my, xo, yo, original);
+    }
+
     @WrapOperation(method = "extractBackground", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V"))
     private void the_leaked_gui_true$changeBackgrondTexture(GuiGraphicsExtractor graphics, RenderPipeline renderPipeline, Identifier texture,
                                                             int x, int y, float u, float v, int width, int height, int textureWidth,

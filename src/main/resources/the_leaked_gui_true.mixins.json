@@ -19,6 +19,7 @@
     "screens.MixinAbstractContainerScreen",
     "screens.MixinShulkerBoxScreen",
     "screens.MixinAbstractFurnaceScreen",
+    "screens.MixinAbstractRecipeBookScreen",
     "accessors.AbstractContainerScreenAccessor",
     "accessors.ScreenAccessor"
   ],
