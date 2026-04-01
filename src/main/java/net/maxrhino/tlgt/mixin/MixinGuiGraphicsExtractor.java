@@ -139,6 +139,6 @@ public class MixinGuiGraphicsExtractor implements ScreenUtils {
 
     @Unique
     public void the_leaked_gui_true$drawContainerBackground(int x, int y, int width, int height) {
-        the_leaked_gui_true$drawContainerBackground(x, y, width, height, "default");
+        the_leaked_gui_true$drawContainerBackground(x, y, width, height, ContainerTypes.DEFAULT);
     }
 }

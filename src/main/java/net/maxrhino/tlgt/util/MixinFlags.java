@@ -1,6 +1,7 @@
 package net.maxrhino.tlgt.util;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.DyeColor;
 
 public class MixinFlags {
     public static final ThreadLocal<Boolean> IS_IN_EXTRACT_SLOT = ThreadLocal.withInitial(() -> false);

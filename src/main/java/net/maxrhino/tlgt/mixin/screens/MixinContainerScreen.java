@@ -57,7 +57,7 @@ public abstract class MixinContainerScreen extends MixinAbstractContainerScreen 
         ScreenUtils mixined = (ScreenUtils) graphics;
 
         mixined.the_leaked_gui_true$drawContainerBackground(
-                x + 90, (instance.height / 2) - 47,
+                x + 90, (instance.height / 2) - 46,
                 width, 94
         );
 

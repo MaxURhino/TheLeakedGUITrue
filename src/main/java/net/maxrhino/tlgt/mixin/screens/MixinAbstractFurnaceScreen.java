@@ -85,7 +85,7 @@ public class MixinAbstractFurnaceScreen {
                 x - 41,
                 y + 87,
                 17, 17,
-                new ScreenUtils.SlotPath("containers/elements/furnace/fuel_slot_flame_bg", false)
+                new ScreenUtils.SlotPath("containers/elements/furnace/fuel/fuel_slot_flame_bg_furnace", false)
         );
 
         graphics.pose().popMatrix();
@@ -153,7 +153,7 @@ public class MixinAbstractFurnaceScreen {
                 customX - 41,
                 customY + 87 + indicatorTextureY,
                 19, indicatorHeight,
-                new ScreenUtils.SlotPath("containers/elements/furnace/fuel_slot_flame_fill", false),
+                new ScreenUtils.SlotPath("containers/elements/furnace/fuel/fuel_slot_flame_fill_furnace", false),
                 19, 19,
                 0, indicatorTextureY
         );

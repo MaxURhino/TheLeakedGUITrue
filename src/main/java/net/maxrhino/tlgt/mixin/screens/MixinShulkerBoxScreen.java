@@ -4,34 +4,32 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.maxrhino.tlgt.interfaces.ScreenUtils;
+import net.maxrhino.tlgt.interfaces.ShulkerBoxMenuDuck;
 import net.maxrhino.tlgt.mixin.accessors.AbstractContainerScreenAccessor;
 import net.maxrhino.tlgt.mixin.accessors.ScreenAccessor;
 import net.maxrhino.tlgt.util.components.widgets.CloseButtonWidget;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.ShulkerBoxScreen;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.DyeColor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ShulkerBoxScreen.class)
-public class MixinShulkerBoxScreen {
-    @Inject(
-            method = "<init>",
-            at = @At("TAIL")
-    )
-    private void the_leaked_gui_true$onInit(CallbackInfo ci) {
+public class MixinShulkerBoxScreen extends MixinAbstractContainerScreen {
+    @Override
+    protected void overrideInit(Operation<Void> original) {
+        original.call();
+
         ShulkerBoxScreen instance = (ShulkerBoxScreen)(Object)this;
 
         int imageWidth = ((AbstractContainerScreenAccessor)this).imageWidth();
-        int imageHeight = ((AbstractContainerScreenAccessor)this).imageHeight();
 
         int xo = (instance.width - imageWidth) / 2 + 90;
         int yo = (instance.height / 2) - 47;
 
-        ScreenAccessor accessor = (ScreenAccessor) this;
-        accessor.the_leaked_gui_true$addRenderableWidget(new CloseButtonWidget(xo + imageWidth - 8, yo + 4));
+        ((ScreenAccessor) this).the_leaked_gui_true$addRenderableWidget(new CloseButtonWidget(xo + imageWidth - 8, yo + 4));
     }
 
     @WrapOperation(method = "extractBackground", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V"))
@@ -70,15 +68,33 @@ public class MixinShulkerBoxScreen {
         xo = x - 90;
         yo = (instance.height / 2) - ((height - 90) / 2);
 
+        AbstractContainerMenu menu = ((AbstractContainerScreenAccessor)this).menu();
+
+        ShulkerBoxMenuDuck duck = (ShulkerBoxMenuDuck) menu;
+
+        int id = duck.the_leaked_gui_true$getDataSlot().get();
+        DyeColor dyeColor;
+        if (id > -1) {
+            dyeColor = DyeColor.byId(id);
+        } else {
+            dyeColor = null;
+        }
+
+        ScreenUtils.ContainerTypes containerType = ScreenUtils.ContainerTypes
+                .createWithColor(
+                        ScreenUtils.ContainerTypes.SHULKER_BOX,
+                        dyeColor
+                );
+
         mixined.the_leaked_gui_true$drawContainerBackground(
                 xo, yo,
                 width, height - 90,
-                ScreenUtils.ContainerTypes.SHULKER_BOX
+                containerType
         );
 
         for (int yc = 0; yc < 3; yc++) {
             for (int xc = 0; xc < 9; xc++) {
-                mixined.the_leaked_gui_true$drawSlot(xo + xc * 18 + 7, yo + yc * 18 + 17, ScreenUtils.ContainerTypes.SHULKER_BOX);
+                mixined.the_leaked_gui_true$drawSlot(xo + xc * 18 + 8, yo + yc * 18 + 17, containerType);
             }
         }
     }

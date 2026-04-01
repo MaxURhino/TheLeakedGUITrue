@@ -54,6 +54,10 @@ public class TheLeakedGUITrue implements ModInitializer {
      */
     @Override
     public void onInitialize() {
+        initializeConfig();
+    }
+
+    public void initializeConfig() {
         AutoConfig.register(TheLeakedGUITrueConfig.class, GsonConfigSerializer::new);
     }
 
