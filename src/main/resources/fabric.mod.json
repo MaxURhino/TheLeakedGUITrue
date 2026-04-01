@@ -11,7 +11,7 @@
   "environment": "*",
   "entrypoints": {
     "fabric-datagen": [
-      "net.maxrhino.tlgt.client.TheLeakedGUITrueDataGenerator"
+      "net.maxrhino.tlgt.client.datagen.TheLeakedGUITrueDataGenerator"
     ],
     "client": [
       "net.maxrhino.tlgt.client.TheLeakedGUITrueClient"

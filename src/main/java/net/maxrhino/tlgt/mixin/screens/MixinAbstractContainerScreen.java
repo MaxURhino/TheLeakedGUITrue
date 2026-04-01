@@ -9,7 +9,9 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -19,6 +21,13 @@ import java.util.Optional;
 public abstract class MixinAbstractContainerScreen {
     @Unique
     private Optional<Component> optionalComponent;
+
+    @Shadow
+    protected int titleLabelX;
+
+    @Shadow
+    @Final
+    public int imageWidth;
 
     @WrapOperation(
             method = "extractLabels",

@@ -9,6 +9,7 @@ package net.maxrhino.tlgt;
 
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.maxrhino.tlgt.config.TheLeakedGUITrueConfig;
 import net.minecraft.network.chat.Component;
@@ -58,7 +59,7 @@ public class TheLeakedGUITrue implements ModInitializer {
     }
 
     public void initializeConfig() {
-        AutoConfig.register(TheLeakedGUITrueConfig.class, GsonConfigSerializer::new);
+        AutoConfig.register(TheLeakedGUITrueConfig.class, JanksonConfigSerializer::new);
     }
 
     /**
@@ -72,45 +73,3 @@ public class TheLeakedGUITrue implements ModInitializer {
         return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
 }
-
-// NO VEGANS HERE
-// IF YOU'RE A VEGAN/NOT A VEGAN, SCROLL DOWN
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// 🥩🥩🥩🥩🥩🥩🥩🥩🥩🥩🥩🥩🥩🥩🥩🥩🥩🥩🥩🥩🥩🥩

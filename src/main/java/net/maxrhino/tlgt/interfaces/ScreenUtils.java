@@ -57,6 +57,8 @@ public interface ScreenUtils {
         public static final ContainerTypes DEFAULT = new ContainerTypes("default");
         public static final ContainerTypes DEFAULT_DARK = new ContainerTypes("default_dark");
         public static final ContainerTypes FURNACE = new ContainerTypes("furnace");
+        public static final ContainerTypes BLAST_FURNACE = new ContainerTypes("blast_furnace");
+        public static final ContainerTypes SMOKER = new ContainerTypes("smoker");
         public static final ContainerTypes SHULKER_BOX = new ContainerTypes("shulker_box");
 
         private final String name;

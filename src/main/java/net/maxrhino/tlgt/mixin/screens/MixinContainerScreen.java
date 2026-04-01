@@ -3,6 +3,7 @@ package net.maxrhino.tlgt.mixin.screens;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.maxrhino.tlgt.TheLeakedGUITrue;
+import net.maxrhino.tlgt.interfaces.ChestMenuDuck;
 import net.maxrhino.tlgt.mixin.accessors.AbstractContainerScreenAccessor;
 import net.maxrhino.tlgt.mixin.accessors.ScreenAccessor;
 import net.maxrhino.tlgt.interfaces.ScreenUtils;
@@ -57,7 +58,7 @@ public abstract class MixinContainerScreen extends MixinAbstractContainerScreen 
         ScreenUtils mixined = (ScreenUtils) graphics;
 
         mixined.the_leaked_gui_true$drawContainerBackground(
-                x + 90, (instance.height / 2) - 46,
+                x + 90, (instance.height / 2) - (MixinFlags.IS_GENERIC_9x3.get() ? 48 : 47),
                 width, 94
         );
 
@@ -67,6 +68,18 @@ public abstract class MixinContainerScreen extends MixinAbstractContainerScreen 
             textureThing = ScreenUtils.ContainerTypes.BARREL;
         } else if (drawnContainer.equals(Component.translatable("container.enderchest"))) {
             textureThing = ScreenUtils.ContainerTypes.CHEST_ENDER;
+        }
+
+        ChestMenuDuck duck = (ChestMenuDuck) instance.getMenu();
+        int chestType = duck.the_leaked_gui_true$getDataSlot().get();
+        if (chestType > -1) {
+            String subType = switch (chestType) {
+                case 1 -> "exposed";
+                case 2 -> "weathered";
+                case 3 -> "oxidized";
+                default -> "normal";
+            };
+            textureThing = ScreenUtils.ContainerTypes.createWithType("chest", "copper_" + subType);
         }
 
         mixined.the_leaked_gui_true$drawContainerBackground(

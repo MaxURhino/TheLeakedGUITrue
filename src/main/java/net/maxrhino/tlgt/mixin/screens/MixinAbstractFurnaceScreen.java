@@ -7,15 +7,18 @@ import net.maxrhino.tlgt.TheLeakedGUITrue;
 import net.maxrhino.tlgt.mixin.accessors.AbstractContainerScreenAccessor;
 import net.maxrhino.tlgt.mixin.accessors.ScreenAccessor;
 import net.maxrhino.tlgt.interfaces.ScreenUtils;
+import net.maxrhino.tlgt.util.MixinFlags;
 import net.maxrhino.tlgt.util.components.widgets.CloseButtonWidget;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.navigation.ScreenPosition;
 import net.minecraft.client.gui.screens.inventory.AbstractFurnaceScreen;
 import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.AbstractFurnaceMenu;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -23,9 +26,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(AbstractFurnaceScreen.class)
-public class MixinAbstractFurnaceScreen {
+public class MixinAbstractFurnaceScreen extends MixinAbstractContainerScreen {
     @Unique
     private int customX, customY;
+
+    @Unique
+    private ScreenUtils.ContainerTypes furnaceType;
 
     @Inject(method = "init", at = @At("TAIL"))
     private void the_leaked_gui_true$addExitButton(CallbackInfo ci) {
@@ -33,6 +39,8 @@ public class MixinAbstractFurnaceScreen {
 
         int imageWidth = ((AbstractContainerScreenAccessor)this).imageWidth();
         int imageHeight = ((AbstractContainerScreenAccessor)this).imageHeight();
+
+        titleLabelX = (instance.width - imageWidth) / 2 - 165 + 5;
 
         int xo = (instance.width - imageWidth) / 2 + 90;
         customX = (instance.width / 2) - (imageWidth / 2);
@@ -65,16 +73,25 @@ public class MixinAbstractFurnaceScreen {
 
         ScreenUtils mixined = (ScreenUtils) graphics;
 
+        Component drawnContainer = MixinFlags.DRAWN_CONTAINER.get();
+        if (drawnContainer.equals(Component.translatable("container.blast_furnace"))) {
+            furnaceType = ScreenUtils.ContainerTypes.BLAST_FURNACE;
+        } else if (drawnContainer.equals(Component.translatable("container.smoker"))) {
+            furnaceType = ScreenUtils.ContainerTypes.SMOKER;
+        } else {
+            furnaceType = ScreenUtils.ContainerTypes.FURNACE;
+        }
+
         mixined.the_leaked_gui_true$drawContainerBackground(
                 xo, yo,
                 width, height - 90,
-                ScreenUtils.ContainerTypes.FURNACE
+                furnaceType
         );
 
         mixined.the_leaked_gui_true$drawSlot(
                 x - 41,
                 y + 57,
-                new ScreenUtils.SlotPath(ScreenUtils.ContainerTypes.FURNACE, true, false)
+                new ScreenUtils.SlotPath(furnaceType, true, false)
         );
 
         graphics.pose().pushMatrix();
@@ -85,7 +102,7 @@ public class MixinAbstractFurnaceScreen {
                 x - 41,
                 y + 87,
                 17, 17,
-                new ScreenUtils.SlotPath("containers/elements/furnace/fuel/fuel_slot_flame_bg_furnace", false)
+                new ScreenUtils.SlotPath("containers/elements/furnace/fuel/fuel_slot_flame_bg_" + furnaceType.getName(), false)
         );
 
         graphics.pose().popMatrix();
@@ -94,7 +111,7 @@ public class MixinAbstractFurnaceScreen {
                 x + 23,
                 y + 73,
                 20, 20,
-                new ScreenUtils.SlotPath(ScreenUtils.ContainerTypes.FURNACE, true, true)
+                new ScreenUtils.SlotPath(furnaceType, true, true)
         );
 
         // Inventory
@@ -153,7 +170,7 @@ public class MixinAbstractFurnaceScreen {
                 customX - 41,
                 customY + 87 + indicatorTextureY,
                 19, indicatorHeight,
-                new ScreenUtils.SlotPath("containers/elements/furnace/fuel/fuel_slot_flame_fill_furnace", false),
+                new ScreenUtils.SlotPath("containers/elements/furnace/fuel/fuel_slot_flame_fill_" + furnaceType.getName(), false),
                 19, 19,
                 0, indicatorTextureY
         );
