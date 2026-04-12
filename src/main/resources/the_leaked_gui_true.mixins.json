@@ -8,7 +8,8 @@
     "accessors.AbstractContainerMenuAccessor",
     "menus.MixinChestMenu",
     "menus.MixinShulkerBoxMenu",
-    "menus.MixinAbstractFurnaceMenu"
+    "menus.MixinAbstractFurnaceMenu",
+    "menus.MixinCraftingMenu"
   ],
   "client": [
     "MixinGui",
@@ -20,6 +21,7 @@
     "screens.MixinShulkerBoxScreen",
     "screens.MixinAbstractFurnaceScreen",
     "screens.MixinAbstractRecipeBookScreen",
+    "screens.MixinCraftingScreen",
     "accessors.AbstractContainerScreenAccessor",
     "accessors.ScreenAccessor"
   ],

@@ -11,3 +11,6 @@ Currently, the additions are:
    * Normal chest
    * Copper chests
    * Barrel
+ * Inventories side by side
+ * Exit buttons
+ * Toggleable slot styles (WIP)
