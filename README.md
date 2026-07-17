@@ -14,3 +14,7 @@ Currently, the additions are:
  * Inventories side by side
  * Exit buttons
  * Toggleable slot styles (WIP)
+
+## Notice:
+This is not an official Microsoft/Mojang project and the mod contains official Minecraft Bedrock Edition assets.
+Please support Microsoft/Mojang, while downloading this mod.

@@ -26,9 +26,16 @@ public class MixinInventoryScreen extends MixinAbstractContainerScreen {
     private void the_leaked_gui_true$changeBackgroundRenderingMethod(GuiGraphicsExtractor graphics, RenderPipeline renderPipeline, Identifier texture, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight, Operation<Void> original) {
         ScreenUtils mixined = (ScreenUtils) graphics;
 
+        var b = "default_dark";
+
+        mixined.the_leaked_gui_true$drawContainerBackground(
+                x, y+(166-94),
+                176, 94
+        );
         mixined.the_leaked_gui_true$drawContainerBackground(
                 x, y,
-                176, 166
+                176, 166-94,
+                b
         );
 
         for (int i = 0; i < 9; i++) {
@@ -42,7 +49,7 @@ public class MixinInventoryScreen extends MixinAbstractContainerScreen {
         }
 
         for (int i = 0; i < 4; i++) {
-            mixined.the_leaked_gui_true$drawSlot(x + 8, y + 8 + (i * 18));
+            mixined.the_leaked_gui_true$drawSlot(x + 8, y + 8 + (i * 18), b);
         }
 
         graphics.blitSprite(
@@ -54,15 +61,15 @@ public class MixinInventoryScreen extends MixinAbstractContainerScreen {
                 51, 72
         );
 
-        mixined.the_leaked_gui_true$drawSlot(x + 77, y + 62);
+        mixined.the_leaked_gui_true$drawSlot(x + 77, y + 62, b);
 
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
-                mixined.the_leaked_gui_true$drawSlot(x + 98 + (i * 18), y + 18 + (j * 18));
+                mixined.the_leaked_gui_true$drawSlot(x + 98 + (i * 18), y + 18 + (j * 18), b);
             }
         }
 
-        mixined.the_leaked_gui_true$drawSlot(x + 154, y + 28);
+        mixined.the_leaked_gui_true$drawSlot(x + 154, y + 28, b);
 
         graphics.blitSprite(
                 RenderPipelines.GUI_TEXTURED,

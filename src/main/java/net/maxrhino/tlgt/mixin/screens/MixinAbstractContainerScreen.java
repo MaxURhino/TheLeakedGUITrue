@@ -18,12 +18,10 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
-import java.util.Optional;
-
 @Mixin(AbstractContainerScreen.class)
-public abstract class MixinAbstractContainerScreen {
+public abstract class MixinAbstractContainerScreen extends MixinScreen {
     @Unique
-    private Optional<Component> optionalComponent;
+    private Component optionalComponent = null;
 
     @Shadow
     protected int titleLabelX;
@@ -67,7 +65,7 @@ public abstract class MixinAbstractContainerScreen {
             original.call(instance, font, str, x, y, color, dropShadow);
         }
 
-        this.optionalComponent = Optional.of(str);
+        this.optionalComponent = str;
     }
 
     @WrapOperation(
@@ -79,7 +77,7 @@ public abstract class MixinAbstractContainerScreen {
             )
     )
     private void the_leaked_gui_true$changeInventoryText(GuiGraphicsExtractor instance, Font font, Component str, int x, int y, int color, boolean dropShadow, Operation<Void> original) {
-        if (this.optionalComponent.isPresent() && TheLeakedGUITrue.CHANGE_POS_LIST.contains(this.optionalComponent.get())) {
+        if (this.optionalComponent != null && TheLeakedGUITrue.CHANGE_POS_LIST.contains(this.optionalComponent)) {
             x += 90;
             y = 67; // bro... really?
             if (MixinFlags.IS_GENERIC_9x3.get()) {

@@ -12,7 +12,7 @@
     "menus.MixinCraftingMenu"
   ],
   "client": [
-    "MixinGui",
+    "MixinHud",
     "MixinGuiGraphicsExtractor",
     "screens.MixinCreativeModeInventoryScreen",
     "screens.MixinInventoryScreen",
@@ -22,8 +22,10 @@
     "screens.MixinAbstractFurnaceScreen",
     "screens.MixinAbstractRecipeBookScreen",
     "screens.MixinCraftingScreen",
+    "screens.MixinScreen",
     "accessors.AbstractContainerScreenAccessor",
-    "accessors.ScreenAccessor"
+    "accessors.ScreenAccessor",
+    "MixinRecipeBookComponent"
   ],
   "injectors": {
     "defaultRequire": 1

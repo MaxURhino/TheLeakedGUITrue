@@ -9,6 +9,7 @@ import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
+import org.jetbrains.annotations.Nullable;
 
 public class CloseButtonWidget extends AbstractWidget {
     public CloseButtonWidget(int x, int y) {
@@ -32,14 +33,14 @@ public class CloseButtonWidget extends AbstractWidget {
     }
 
     @Override
-    protected void updateWidgetNarration(NarrationElementOutput output) {
+    protected void updateWidgetNarration(@Nullable NarrationElementOutput output) {
     }
 
     @Override
-    public void onClick(final MouseButtonEvent event, final boolean doubleClick) {
+    public void onClick(@Nullable final MouseButtonEvent event, final boolean doubleClick) {
         Minecraft minecraft = Minecraft.getInstance();
-        if (minecraft.screen != null) {
-            minecraft.execute(() -> minecraft.screen.onClose());
+        if (minecraft.gui.screen() != null) {
+            minecraft.execute(() -> minecraft.gui.screen().onClose());
         }
     }
 }

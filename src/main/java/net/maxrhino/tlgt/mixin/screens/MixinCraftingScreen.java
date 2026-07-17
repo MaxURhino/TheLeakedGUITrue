@@ -3,6 +3,7 @@ package net.maxrhino.tlgt.mixin.screens;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
+import net.maxrhino.tlgt.interfaces.ScreenUtils;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.CraftingScreen;
 import net.minecraft.resources.Identifier;
@@ -19,6 +20,9 @@ public class MixinCraftingScreen extends MixinAbstractRecipeBookScreen {
             )
     )
     private void the_leaked_gui_true$changeCraftingScreenBackground(GuiGraphicsExtractor graphics, RenderPipeline renderPipeline, Identifier texture, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight, Operation<Void> original) {
-        CraftingScreen instance = (CraftingScreen)(Object)this;
+        //CraftingScreen instance = (CraftingScreen)(Object)this;
+        ScreenUtils duck = (ScreenUtils)graphics;
+        duck.the_leaked_gui_true$drawContainerBackground(this.width/2+4, this.height/2-45, width, 90);
+        duck.the_leaked_gui_true$drawContainerBackground(this.width/2-(width+4), this.height/2-((height-90)/2), width, height-90, "workbench");
     }
 }

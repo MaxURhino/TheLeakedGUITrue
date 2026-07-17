@@ -33,7 +33,7 @@ public class MixinChestMenu implements ChestMenuDuck {
             method = "<init>(Lnet/minecraft/world/inventory/MenuType;ILnet/minecraft/world/entity/player/Inventory;Lnet/minecraft/world/Container;I)V",
             at = @At("TAIL")
     )
-    private void the_leaked_gui_true$addDataSlotThing(MenuType menuType, int containerId, Inventory inventory, Container container, int rows, CallbackInfo ci) {
+    private void the_leaked_gui_true$addDataSlotThing(MenuType<?> menuType, int containerId, Inventory inventory, Container container, int rows, CallbackInfo ci) {
         AbstractContainerMenuAccessor accessor = (AbstractContainerMenuAccessor) this;
         dataSlot = DataSlot.standalone();
         dataSlot.set(-1);
@@ -49,11 +49,11 @@ public class MixinChestMenu implements ChestMenuDuck {
             if (level != null) {
                 BlockState state = level.getBlockState(pos);
                 if (state.is(BlockTags.COPPER_CHESTS)) {
-                    if (state.is(Blocks.EXPOSED_COPPER_CHEST) || state.is(Blocks.WAXED_EXPOSED_COPPER_CHEST)) {
+                    if        (state.is(Blocks.COPPER_CHEST.weathering().exposed())   || state.is(Blocks.COPPER_CHEST.waxed().exposed())  ) {
                         dataSlot.set(1);
-                    } else if (state.is(Blocks.WEATHERED_COPPER_CHEST) || state.is(Blocks.WAXED_WEATHERED_COPPER_CHEST)) {
+                    } else if (state.is(Blocks.COPPER_CHEST.weathering().weathered()) || state.is(Blocks.COPPER_CHEST.waxed().weathered())) {
                         dataSlot.set(2);
-                    } else if (state.is(Blocks.OXIDIZED_COPPER_CHEST) || state.is(Blocks.WAXED_OXIDIZED_COPPER_CHEST)) {
+                    } else if (state.is(Blocks.COPPER_CHEST.weathering().oxidized())  || state.is(Blocks.COPPER_CHEST.waxed().oxidized()) ) {
                         dataSlot.set(3);
                     } else {
                         dataSlot.set(0);
