@@ -26,12 +26,10 @@ public abstract class MixinAbstractContainerScreen extends MixinScreen {
     @Shadow
     protected int titleLabelX;
 
-    @Shadow
-    @Final
+    @Shadow @Final
     public int imageWidth, imageHeight;
 
-    @Final
-    @Shadow
+    @Shadow @Final
     protected AbstractContainerMenu menu;
 
     @WrapOperation(
